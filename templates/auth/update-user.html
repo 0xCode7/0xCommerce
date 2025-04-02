@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <h1>Edit Profile</h1>
+        <hr>
+        <div class="row">
+            <!-- edit form column -->
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn fw-bold" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                    aria-expanded="true" aria-controls="collapseOne">
+                                Authentication:
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="h`eadingOne"
+                         data-bs-parent="#accordion">
+                        <div class="card-body">
+                            <div class="col-md-12 personal-info">
+                                {% include 'components/messages.html' %}
+                                <form method="post" action="{% url 'authentication:profile' %}">
+                                    {% csrf_token %}
+                                    {% include 'components/messages.html' %}
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="firstName"
+                                                       value="{{ user.first_name }}"
+                                                       name="first_name">
+                                                <label for="firstName">First name</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" type="text" value="{{ user.last_name }}"
+                                                       id="lastName"
+                                                       name="last_name">
+                                                <label for="lastName">Last name</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-floating mb-3">
+                                                <input type="email" class="form-control" id="emailInput"
+                                                       value="{{ user.email }}" name="email">
+                                                <label for="emailInput">Email address</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" type="text" value="{{ user.username }}"
+                                                       id="userName"
+                                                       name="username">
+                                                <label for="userName">Username:</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {#                                    <div class="form-group mt-2 row">#}
+                                    {#                                        <p class="text-center">#}
+                                    {#                                            <a class="btn btn-primary" type="button" data-bs-toggle="collapse"#}
+                                    {#                                               data-bs-target="#changePassword" aria-expanded="false"#}
+                                    {#                                               aria-controls="changePassword">#}
+                                    {#                                                Change Password?#}
+                                    {#                                            </a>#}
+                                    {#                                        </p>#}
+                                    {#                                        <div class="row collapse" id="changePassword">#}
+                                    {#                                            <div class=" col-sm-6">#}
+                                    {#                                                <div class="form-floating mb-3">#}
+                                    {#                                                    <input type="password" class="form-control" id="password1Field"#}
+                                    {#                                                           name="password1"#}
+                                    {#                                                           autocomplete="new-password">#}
+                                    {#                                                    <label for="password1Field">Password</label>#}
+                                    {#                                                </div>#}
+                                    {#                                            </div>#}
+                                    {#                                            <div class=" col-sm-6">#}
+                                    {#                                                <div class="form-floating mb-3">#}
+                                    {#                                                    <input type="password" class="form-control" id="password2Field"#}
+                                    {#                                                           name="password2"#}
+                                    {#                                                           autocomplete="new-password">#}
+                                    {#                                                    <label for="password2Field">Confirm Password</label>#}
+                                    {#                                                </div>#}
+                                    {#                                            </div>#}
+                                    {#                                        </div>#}
+                                    {#                                    </div>#}
+                                    <div class="form-group">
+                                        <label class="col-md-3"></label>
+                                        <div class="col-md-8">
+                                            <input type="submit" class="btn btn-primary" value="Save Changes">
+                                            <span></span>
+                                            <input type="reset" class="btn btn-default" value="Cancel">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="infoHeading">
+                        <h5 class="mb-0">
+                            <button class="btn fw-bold" data-bs-toggle="collapse" data-bs-target="#infoCollapse"
+                                    aria-expanded="true" aria-controls="infoCollapse">
+                                Profile Info:
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="infoCollapse" class="collapse" aria-labelledby="infoHeading"
+                         data-bs-parent="#accordion">
+                        <div class="card-body">
+                            <!-- edit form column -->
+                            <div class="col-md-12 personal-info">
+                                <form method="post" action="{% url 'authentication:update-info' %}">
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
+
+                                    <div class="form-group mt-2 row">
+                                        <label class="col-md-3"></label>
+                                        <div class="col-md-8">
+                                            <input type="submit" class="btn btn-primary" value="Save Changes">
+                                            <span></span>
+                                            <input type="reset" class="btn btn-default" value="Cancel">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="shippingHeading">
+                        <h5 class="mb-0">
+                            <button class="btn fw-bold" data-bs-toggle="collapse" data-bs-target="#shippingCollapse"
+                                    aria-expanded="true" aria-controls="shippingCollapse">
+                                Shipping Info:
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="shippingCollapse" class="collapse" aria-labelledby="shippingHeading"
+                         data-bs-parent="#accordion">
+                        <div class="card-body">
+                            <!-- edit form column -->
+                            <div class="col-md-12 personal-info">
+                                <form method="post" action="{% url 'authentication:update-shipping' %}">
+                                    {% csrf_token %}
+                                    {{ shipping_form.as_p }}
+
+                                    <div class="form-group mt-2 row">
+                                        <label class="col-md-3"></label>
+                                        <div class="col-md-8">
+                                            <input type="submit" class="btn btn-primary" value="Save Changes">
+                                            <span></span>
+                                            <input type="reset" class="btn btn-default" value="Cancel">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

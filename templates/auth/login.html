@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card border-0 shadow rounded-3 my-5">
+                    <div class="card-body p-4 p-sm-5">
+                        {% include 'components/messages.html' %}
+                        <h5 class="card-title text-center mb-5 fw-light fs-5">Login</h5>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="usernameInput"
+                                       placeholder="username" name="username">
+                                <label for="usernameInput">Username</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="passwordInput"
+                                       placeholder="*********" name="password">
+                                <label for="passwordInput">Password</label>
+                            </div>
+
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" value="" id="showPassword">
+                                <label class="form-check-label" for="showPassword">
+                                    Show Password
+                                </label>
+                            </div>
+                            <div class="d-grid">
+                                <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">
+                                    Login
+                                </button>
+                            </div>
+                            <hr>
+                            <p class="text-center mt-2">
+                                Don't have an account?
+                                <a href="{% url 'authentication:register' %}">Register</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const showPassword = document.getElementById('showPassword')
+        const passwordInput = document.getElementById('passwordInput')
+
+        showPassword.addEventListener('click', () => {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text'
+            } else {
+                passwordInput.type = 'password'
+            }
+        })
+    </script>
+{% endblock %}

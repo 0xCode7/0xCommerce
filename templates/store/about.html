@@ -1,0 +1,34 @@
+<!-- about.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    {% include 'components/header.html' with title="About Us" content="Welcome to 0xCommerce" %}
+    <div class="container pt-4">
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="display-4 text-primary">About 0xCommerce</h1>
+                <p class="lead">
+                    Welcome to 0xCommerce, your platform for innovative e-commerce solutions. We provide a scalable and
+                    secure platform to manage products, orders, and customers.
+                </p>
+                <p>
+                    Whether you're starting out or expanding your store, our customizable features help businesses grow
+                    and succeed in the digital marketplace.
+                </p>
+                <p>
+                    With a user-friendly interface, powerful analytics, and seamless integrations, we empower your
+                    e-commerce journey and boost your sales.
+                </p>
+                <p>
+                    Join 0xCommerce today and elevate your business!
+                </p>
+
+            </div>
+            <div class="col-md-4 offset-2">
+                <img src="{% static 'assets/0xCode7Logo.jpg' %}" alt="E-commerce Image"
+                     class="img-fluid rounded shadow-lg h-75">
+            </div>
+        </div>
+    </div>
+{% endblock %}

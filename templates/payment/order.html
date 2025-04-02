@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% include 'components/messages.html' %}
+    <div class="container-fluid pt-5">
+        <div class="card m-auto w-75">
+            <div class="card-body bg-light">
+                <h5 class="card-title">Name: <span class="fw-light">{{ order.full_name }}</span>
+                </h5>   <h5 class="card-title">Email: <span class="fw-light">{{ order.email }}</span>
+            </h5>
+
+            </div>
+            <ul class="list-group list-group-flush">
+                {% for item in order.order_items.all %}
+                    <li class="list-group-item fw-bold">
+                        {{ item.product.name }}
+                        <span class="float-end">
+                            {{ item.quantity }} x ${{ item.product.price }}
+                        </span>
+                    </li>
+                {% endfor %}
+            </ul>
+            <div class="card-body bg-light">
+                <span class="fw-bolder">Total: </span>
+                <span class="float-end">
+                    ${{ order.amount_paid }}
+                </span>
+
+            </div>
+
+            <form method="POST" action="{% url 'payment:order_details' order.id %}">
+                {% csrf_token %}
+                <input type="hidden" name="order_id" value="{{ order.id }}">
+
+                {% if order.shipped %}
+                    <button type="submit" class="btn btn-danger m-3">Unship Order</button>
+                {% else %}
+                    <button type="submit" class="btn btn-success m-3">Ship Order</button>
+                {% endif %}
+            </form>
+        </div>
+
+    </div>
+{% endblock %}

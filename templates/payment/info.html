@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container pt-5">
+        <div class="row">
+            <div class="col-md-5 order-md-2 mb-4">
+                <div class="card bg-primary text-white rounded-3">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="mb-0">Card details</h5>
+                        </div>
+                        <form class="mt-4" method="POST" action="{% url 'payment:success' %}">
+                            {% csrf_token %}
+                            <div data-mdb-input-init
+                                 class="form-outline form-white mb-4">
+                                <input type="text" id="Card holder"
+                                       class="form-control form-control-lg" size="17"
+                                       placeholder="Cardholder's Name"/>
+                                <label class="form-label" for="Card holder">Cardholder's
+                                    Name</label>
+                            </div>
+
+                            <div data-mdb-input-init
+                                 class="form-outline form-white mb-4">
+                                <input type="text" id="Card Number"
+                                       class="form-control form-control-lg" size="17"
+                                       placeholder="1234 5678 9012 3457" minlength="19"
+                                       maxlength="19"/>
+                                <label class="form-label" for="Card Number">Card
+                                    Number</label>
+                            </div>
+
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <div data-mdb-input-init
+                                         class="form-outline form-white">
+                                        <input type="text" id="Exp"
+                                               class="form-control form-control-lg"
+                                               placeholder="MM/YYYY" size="7"
+                                               minlength="7" maxlength="7"/>
+                                        <label class="form-label" for="Exp">Expiration</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div data-mdb-input-init
+                                         class="form-outline form-white">
+                                        <input type="password" id="CVV"
+                                               class="form-control form-control-lg"
+                                               placeholder="&#9679;&#9679;&#9679;"
+                                               size="1" minlength="3" maxlength="3"/>
+                                        <label class="form-label"
+                                               for="CVV">Cvv</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="my-4">
+
+                            <div class="d-flex justify-content-between">
+                                <p class="mb-2">Subtotal</p>
+                                <p class="mb-2">${{ total_price }}</p>
+                            </div>
+
+                            <div class="d-flex justify-content-between">
+                                <p class="mb-2">Shipping</p>
+                                <p class="mb-2">$20.00</p>
+                            </div>
+
+                            <div class="d-flex justify-content-between mb-4">
+                                <p class="mb-2">Total(Incl. taxes)</p>
+                                <p class="mb-2">${{ total_price|add:20|floatformat:2 }}</p>
+                            </div>
+
+                            <button type="submit" data-mdb-button-init data-mdb-ripple-init
+                                    class="btn btn-info btn-block btn-lg">
+                                <div class="d-flex justify-content-between">
+
+                                    <span>Paynow<i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                                </div>
+                            </button>
+
+                        </form>
+
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-7 order-md-1 mb-2">
+                <h4 class="mb-3">Info Confirmation</h4>
+
+                <div>
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <h3>
+                                Shipping Info
+                            </h3>
+                            <a class="text-decoration-none text-white btn btn-primary"
+                               href="{% url 'payment:checkout' %}">
+
+                                <div class="d-flex justify-content-between">
+                                                    <span>Edit <i
+                                                            class="fas fa-long-arrow-alt-left ms-2"></i></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-hover table-bordered justify-content-center align-items-center">
+                                <thead class="thead-dark">
+                                <tr>
+                                    <th class="text-start">Key</th>
+                                    <th scope="col">Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="">
+                                    <td class="text-start">Name</td>
+                                    <td class="text-start">{{ shipping_form.shipping_full_name }}</td>
+                                </tr>
+                                <tr class="">
+                                    <td class="text-start">Email</td>
+                                    <td class="text-start">{{ shipping_form.shipping_email }}</td>
+                                </tr>
+                                <tr class="">
+                                    <td class="text-start">Address1</td>
+                                    <td class="text-start">{{ shipping_form.shipping_address1 }}</td>
+                                </tr>
+                                <tr class="">
+                                    <td class="text-start">Address2</td>
+                                    <td class="text-start">{{ shipping_form.shipping_address2 }}</td>
+                                </tr>
+                                <tr class="">
+                                    <td class="text-start">Country</td>
+                                    <td class="text-start">{{ shipping_form.shipping_country }}</td>
+                                </tr>
+                                <tr class="">
+                                    <td class="text-start">City</td>
+                                    <td class="text-start">{{ shipping_form.shipping_city }}</td>
+                                </tr>
+                                <tr class="">
+                                    <td class="text-start">State</td>
+                                    <td class="text-start">{{ shipping_form.shipping_state }}</td>
+                                </tr>
+                                <tr class="">
+                                    <td class="text-start">Zipcode</td>
+                                    <td class="text-start">{{ shipping_form.shipping_zipcode }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

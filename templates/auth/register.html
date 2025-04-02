@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card border-0 shadow rounded-3">
+                    <div class="card-body p-4 p-sm-5">
+                        <h5 class="card-title text-center mb-5 fw-light fs-5">Register</h5>
+                        <form method="post" action="{% url 'authentication:register' %}">
+                            {% csrf_token %}
+                            {% include 'components/messages.html' %}
+                            <div class="row mb-3">
+                                <div class="col-sm-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="firstName" placeholder="Mahmoud" name="first_name">
+                                        <label for="firstName">First name</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="lastName" placeholder="Said" name="last_name">
+                                        <label for="lastName">Last name</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="emailInput"
+                                       placeholder="name@example.com" name="email">
+                                <label for="emailInput">Email address</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="usernameInput"
+                                       placeholder="0xCode" name="username">
+                                <label for="usernameInput">Username</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="passwordInput"
+                                       placeholder="Password" name="password1">
+                                <label for="passwordInput">Password</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="password" class="form-control" id="confirmPassword"
+                                       placeholder="Password" name="password2">
+                                <label for="confirmPassword">Confirm Password</label>
+                            </div>
+
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" value="" id="showPassword">
+                                <label class="form-check-label" for="showPassword">
+                                    Show Password
+                                </label>
+                            </div>
+                            <div class="d-grid">
+                                <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">
+                                    Register
+                                </button>
+                            </div>
+                            <hr>
+                            <p class="text-center">
+                                Already have an account?
+                                <a href="{% url 'authentication:login' %}">Login</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const showPassword = document.getElementById('showPassword')
+        const passwordInput = document.getElementById('passwordInput')
+        const confirmPassword = document.getElementById('confirmPassword')
+
+        showPassword.addEventListener('click', () => {
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text'
+                confirmPassword.type = 'text'
+            } else {
+                passwordInput.type = 'password'
+                confirmPassword.type = 'password'
+            }
+        })
+    </script>
+{% endblock %}

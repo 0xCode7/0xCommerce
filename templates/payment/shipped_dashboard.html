@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% include 'components/messages.html' %}
+    <div class="container-fluid pt-5">
+        <div>
+            <h3 class="mb-2">Shipped Orders</h3>
+            <table class="table table-striped" title="Shipped Orders">
+                <thead class="thead-dark">
+                <tr class="bg-dark text-white">
+                    <th scope="col">#</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Customer Email</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Date Orders / Shipped</th>
+                    <th scope="col">Details</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for order in orders %}
+                    <tr>
+
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.amount_paid }}</td>
+                        <td>{{ order.email }}</td>
+                        {% if order.shipped %}
+                            <td>
+                                <span class="badge badge-success bg-success">Shipped</span>
+                            </td>
+                            <td>
+                                {{ order.date_shipped }}
+                            </td>
+                        {% else %}
+                            <td>
+                                <span class="badge bg-danger">Not Shipped</span>
+                            </td>
+                            <td>
+                                {{ order.date_ordered }}
+                            </td>
+                        {% endif %}
+
+
+                        <td>
+                            <a class="btn btn-warning" href="{% url 'payment:order_details' order.id %}">Details</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+{% endblock %}
