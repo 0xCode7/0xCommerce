@@ -52,7 +52,7 @@ def info(request):
         host = request.get_host()
         paypal_dict = {
             'business': settings.PAYPAL_RECEIVER_EMAIL,
-            'amount': total_price + 20,
+            'amount': total_price,
             'item_name': '',
             'invoice': str(uuid.uuid4()),  # Unique invoice ID
             'currency_code': 'USD',
