@@ -6,6 +6,12 @@ from payment.models import ShippingAddress, Order, OrderItem
 from payment.forms import ShippingAddressForm, PaymentForm
 from store.models import Profile
 
+# Paypal
+from django.urls import reverse
+from paypal.standard.forms import PayPalPaymentsForm
+from django.conf import settings
+import uuid  # unique userid for duplicate orders
+
 
 # Create your views here.
 
@@ -41,10 +47,27 @@ def info(request):
         shipping_form = request.POST
 
         request.session['shipping_form'] = shipping_form
+
+        # Paypal
+        host = request.get_host()
+        paypal_dict = {
+            'business': settings.PAYPAL_RECEIVER_EMAIL,
+            'amount': total_price + 20,
+            'item_name': '',
+            'invoice': str(uuid.uuid4()),  # Unique invoice ID
+            'currency_code': 'USD',
+            'notify_url': 'http://{}{}'.format(host, "/paypal-ipn/"),
+            'return': 'http://{}{}'.format(host, reverse('payment:success')),
+            'cancel_return': 'http://{}{}'.format(host, reverse('payment:checkout')),
+        }
+
+        # Create the PayPal form
+        paypal_form = PayPalPaymentsForm(initial=paypal_dict)
         context = {
             'cart_products': cart_products,
             'total_price': total_price,
-            'shipping_form': shipping_form
+            'shipping_form': shipping_form,
+            'paypal_form': paypal_form,
         }
         return render(request, 'payment/info.html', context)
     else:

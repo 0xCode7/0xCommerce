@@ -49,7 +49,10 @@ INSTALLED_APPS = [
     'store',
     'cart',
     'payment',
-    'whitenoise.runserver_nostatic'
+    'whitenoise.runserver_nostatic',
+    
+    # Paypal
+    'paypal.standard.ipn',
 
 ]
 
@@ -154,3 +157,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
+
+
+# Paypal Settings
+# Sandbox Settings
+PAYPAL_TEST = True
+PAYPAL_RECEIVER_EMAIL = os.getenv('PAYPAL_RECEIVER_EMAIL')
